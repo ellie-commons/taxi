@@ -18,60 +18,63 @@ namespace Taxi {
 
     class OperationsPopover : Gtk.Popover {
 
-        Gtk.Grid grid = new Gtk.Grid ();
-        Gee.Map<IOperationInfo, Gtk.Grid> operation_map
-            = new Gee.HashMap <IOperationInfo, Gtk.Grid> ();
+        Gtk.Grid grid;
         Gtk.Label placeholder;
+
+        Gee.Map<IOperationInfo, Gtk.Box> operation_map = new Gee.HashMap <IOperationInfo, Gtk.Box> ();
 
         public signal void operations_pending ();
         public signal void operations_finished ();
 
         public OperationsPopover (Gtk.Widget widget) {
-            set_relative_to (widget);
-            grid.set_orientation (Gtk.Orientation.VERTICAL);
-            grid.margin = 12;
+            set_parent (widget);
+            grid = new Gtk.Grid () {
+                margin_top = 12,
+                margin_bottom = 12,
+                margin_start = 12,
+                margin_end = 12
+            };
+
             placeholder = new Gtk.Label (_("No file operations are in progress"));
-            add (grid);
+            child = grid;
+
             build ();
         }
 
         private void build () {
-            grid.add (placeholder);
+            grid.attach (placeholder, 0, 0);
         }
 
-        public void add_operation (IOperationInfo operation) {
+        public async void add_operation (IOperationInfo operation) {
             if (grid.get_child_at (0, 0) == placeholder) {
                 grid.remove (placeholder);
                 operations_pending ();
             }
-            var row = new Gtk.Grid ();
+            var row = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
             operation_map.set (operation, row);
 
-            row.add (new Gtk.Label (operation.get_file_name ()));
+            var icon = yield operation.get_file_icon ();
+            row.append (new Gtk.Image.from_gicon (icon));
 
-            operation.get_file_icon.begin ((obj, res) => {
-                row.add (
-                    new Gtk.Image.from_gicon (
-                        operation.get_file_icon.end (res),
-                        Gtk.IconSize.DND
-                    )
-                );
+            row.append (new Gtk.Label (operation.get_file_name ()) {
+                margin_start = 6
             });
 
-            var cancel = new Gtk.Image.from_icon_name (
-                "process-stop-symbolic",
-                Gtk.IconSize.BUTTON
-            );
-            var cancel_container = new Gtk.EventBox ();
-            cancel_container.add (cancel);
-            cancel_container.button_press_event.connect (() => {
+            var cancel_container = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+                hexpand = true,
+                halign = END
+            };
+            cancel_container.append (new Gtk.Image.from_icon_name ("process-stop-symbolic"));
+
+            var click_controller = new Gtk.GestureClick ();
+            cancel_container.add_controller (click_controller);
+            click_controller.pressed.connect (() => {
                 operation.cancel ();
-                return false;
             });
-            row.add (cancel_container);
 
-            grid.add (row);
-            grid.show_all ();
+            row.append (cancel_container);
+
+            grid.attach (row, 0, 0);
         }
 
         public void remove_operation (IOperationInfo operation) {
@@ -80,7 +83,7 @@ namespace Taxi {
             operation_map.unset (operation);
             if (operation_map.size == 0) {
                 operations_finished ();
-                grid.add (placeholder);
+                grid.attach (placeholder, 0, 0);
             }
         }
     }

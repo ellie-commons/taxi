@@ -15,7 +15,7 @@
 ***/
 
 namespace Taxi {
-    public class ConnectBox : Gtk.Grid {
+    public class ConnectBox : Adw.Bin {
         private Gtk.ComboBoxText protocol_combobox;
         private Gtk.Entry path_entry;
         private ulong? handler;
@@ -40,15 +40,20 @@ namespace Taxi {
             path_entry.hexpand = true;
             path_entry.max_width_chars = 10000;
 
-            orientation = Gtk.Orientation.HORIZONTAL;
-            add (protocol_combobox);
-            add (path_entry );
-            get_style_context ().add_class (Gtk.STYLE_CLASS_LINKED);
+            var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+            box.append (protocol_combobox);
+            box.append (path_entry );
+            box.add_css_class (Granite.STYLE_CLASS_LINKED);
+
+            child = box;
 
             path_entry.activate.connect (submit_form);
             path_entry.changed.connect (on_changed);
-            path_entry.focus_out_event.connect (on_focus_out);
-            path_entry.grab_focus.connect_after (on_grab_focus);
+
+            var focus_controller = new Gtk.EventControllerFocus ();
+            path_entry.add_controller (focus_controller);
+            focus_controller.enter.connect (on_grab_focus);
+            focus_controller.leave.connect (on_focus_out);
         }
 
         private void submit_form () {
@@ -83,7 +88,7 @@ namespace Taxi {
             }
         }
 
-        private bool on_focus_out () {
+        private void on_focus_out () {
             if (path_entry.get_text () == "" && show_fav_icon) {
                 var uri_reply = ask_hostname ();
                 // TODO: Handle text changes in a less lazy way
@@ -91,7 +96,6 @@ namespace Taxi {
                 path_entry.set_text (uri_reply.to_string ());
                 path_entry.changed.connect (this.on_changed);
             }
-            return false;
         }
 
         private void hide_host_icon () {
@@ -145,10 +149,11 @@ namespace Taxi {
             });
         }
 
-        public bool on_key_press_event (Gdk.EventKey event) {
+        public bool on_key_press_event () {
             if (!path_entry.has_visible_focus ()) {
                 path_entry.grab_focus ();
             }
+
             return false;
         }
 
