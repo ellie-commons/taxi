@@ -31,7 +31,7 @@ class Taxi.MainWindow : Gtk.ApplicationWindow {
     private FilePane remote_pane;
     private GLib.Uri conn_uri;
     private Gtk.Popover bookmark_popover;
-    private Gtk.Box welcome_box;
+    private Granite.Placeholder welcome_box;
     private Gtk.Label title_label;
 
     public MainWindow (
@@ -70,7 +70,7 @@ class Taxi.MainWindow : Gtk.ApplicationWindow {
         var spinner = new Gtk.Spinner ();
         spinner.start ();
 
-        var popover = new OperationsPopover (spinner);
+        var popover = new OperationsPopover ();
 
         var operations_button = new Gtk.MenuButton () {
             popover = popover,
@@ -127,15 +127,9 @@ class Taxi.MainWindow : Gtk.ApplicationWindow {
             justify = CENTER
         };
 
-        welcome_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
-            hexpand = true,
-            vexpand = true,
-            halign = CENTER,
-            valign = CENTER
+        welcome_box = new Granite.Placeholder (_("Connect")) {
+            description = _("Type a URL and press 'Enter' to\nconnect to a server."),
         };
-        welcome_box.append (app_icon);
-        welcome_box.append (title_label);
-        welcome_box.append (description_label);
 
         local_pane = new FilePane ();
         local_pane.open.connect (on_local_open);
@@ -245,16 +239,13 @@ class Taxi.MainWindow : Gtk.ApplicationWindow {
             bookmark_menu_button.sensitive = false;
         } else {
             foreach (string uri in uri_list) {
-                var bookmark_item = new Gtk.Button () {
-                    child = new Gtk.Label (uri) {
-                        halign = START
-                    }
-                };
+                var bookmark_item = new Gtk.Button.with_label (uri);
                 bookmark_item.add_css_class (Granite.STYLE_CLASS_MENUITEM);
                 bookmark_item.clicked.connect (() => {
                     connect_box.go_to_uri (uri);
                     bookmark_popover.popdown ();
                 });
+                bookmark_item.child.halign = START;
 
                 bookmark_list.append (bookmark_item);
             }

@@ -117,17 +117,17 @@ namespace Taxi {
         private Gee.List<string> get_marked_row_uris () {
             var uri_list = new Gee.ArrayList<string> ();
 
-            Gtk.ListBoxRow row = null;
-            var row_index = 0;
-
-            do {
-                row = list_box.get_row_at_index (row_index);
-                if (((FileRow)row).active) {
-                    uri_list.add (current_uri.to_string () + "/" + ((FileRow)row).file_name);
+            unowned var row = list_box.get_first_child ();
+            while (row != null) {
+                if (row is FileRow) {
+                    unowned var file_row = (FileRow) row;
+                    if (file_row.active) {
+                        uri_list.add (current_uri.to_string () + "/" + file_row.file_name);
+                    }
                 }
 
-                row_index++;
-            } while (row != null);
+                row = row.get_next_sibling ();
+            }
 
             return uri_list;
         }
@@ -136,7 +136,7 @@ namespace Taxi {
             clear_children (list_box);
             // Have to convert to gee list because glib list sort function is buggy
             // (it randomly removes items...)
-            var gee_list = glib_to_gee<GLib.FileInfo> (file_list);
+            var gee_list = glib_to_gee<FileInfo> (file_list);
             alphabetical_order (gee_list);
             foreach (GLib.FileInfo file_info in gee_list) {
                 if (file_info.get_name ().get_char (0) == '.') {
@@ -146,10 +146,7 @@ namespace Taxi {
                 var row = new FileRow (file_info);
                 row.current_uri = current_uri;
                 row.on_checkbutton_toggle.connect (on_checkbutton_toggle);
-                row.on_delete.connect (() => {
-
-                });
-
+                
                 if (row != null) {
                     list_box.append (row);
                 }

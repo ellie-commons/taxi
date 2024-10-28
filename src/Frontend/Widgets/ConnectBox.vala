@@ -42,7 +42,7 @@ namespace Taxi {
 
             var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
             box.append (protocol_combobox);
-            box.append (path_entry );
+            box.append (path_entry);
             box.add_css_class (Granite.STYLE_CLASS_LINKED);
 
             child = box;
