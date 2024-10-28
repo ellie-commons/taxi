@@ -146,7 +146,7 @@ namespace Taxi {
                 var row = new FileRow (file_info);
                 row.current_uri = current_uri;
                 row.on_checkbutton_toggle.connect (on_checkbutton_toggle);
-                
+
                 if (row != null) {
                     list_box.append (row);
                 }
