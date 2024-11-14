@@ -115,10 +115,6 @@ class Taxi.MainWindow : Gtk.ApplicationWindow {
         header_bar.pack_start (spinner_revealer);
         header_bar.pack_start (bookmark_menu_button);
 
-        var description_label = new Gtk.Label (_("Type a URL and press 'Enter' to\nconnect to a server.")) {
-            justify = CENTER
-        };
-
         welcome = new Granite.Placeholder (_("Connect")) {
             description = _("Type a URL and press 'Enter' to\nconnect to a server."),
         };
@@ -146,7 +142,7 @@ class Taxi.MainWindow : Gtk.ApplicationWindow {
         size_group.add_widget (remote_pane);
 
         alert_stack = new Gtk.Stack ();
-        alert_stack.add_child (welcome_box);
+        alert_stack.add_child (welcome);
         alert_stack.add_child (outer_box);
 
         toast = new Granite.Toast ("");
@@ -191,7 +187,7 @@ class Taxi.MainWindow : Gtk.ApplicationWindow {
                 );
                 conn_uri = uri;
             } else {
-                alert_stack.visible_child = welcome_box;
+                alert_stack.visible_child = welcome;
                 welcome.title = _("Could not connect to '%s'").printf (uri.to_string ());
             }
             hide_spinner ();
