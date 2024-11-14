@@ -31,8 +31,7 @@ class Taxi.MainWindow : Gtk.ApplicationWindow {
     private FilePane remote_pane;
     private GLib.Uri conn_uri;
     private Gtk.Popover bookmark_popover;
-    private Granite.Placeholder welcome_box;
-    private Gtk.Label title_label;
+    private Granite.Placeholder welcome;
 
     public MainWindow (
         Gtk.Application application,
@@ -116,18 +115,11 @@ class Taxi.MainWindow : Gtk.ApplicationWindow {
         header_bar.pack_start (spinner_revealer);
         header_bar.pack_start (bookmark_menu_button);
 
-        var app_icon = new Gtk.Image.from_icon_name ("com.github.alecaddd.taxi") {
-            pixel_size = 64
-        };
-
-        title_label = new Gtk.Label (_("Connect"));
-        title_label.add_css_class (Granite.STYLE_CLASS_H1_LABEL);
-
         var description_label = new Gtk.Label (_("Type a URL and press 'Enter' to\nconnect to a server.")) {
             justify = CENTER
         };
 
-        welcome_box = new Granite.Placeholder (_("Connect")) {
+        welcome = new Granite.Placeholder (_("Connect")) {
             description = _("Type a URL and press 'Enter' to\nconnect to a server."),
         };
 
@@ -200,7 +192,7 @@ class Taxi.MainWindow : Gtk.ApplicationWindow {
                 conn_uri = uri;
             } else {
                 alert_stack.visible_child = welcome_box;
-                title_label.label = _("Could not connect to '%s'").printf (uri.to_string ());
+                welcome.title = _("Could not connect to '%s'").printf (uri.to_string ());
             }
             hide_spinner ();
         });
