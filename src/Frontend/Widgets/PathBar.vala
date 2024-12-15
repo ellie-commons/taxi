@@ -15,7 +15,7 @@
 ***/
 
 namespace Taxi {
-    class PathBar : Gtk.Grid {
+    class PathBar : Gtk.Box {
         public bool transfer_button_sensitive { get; set; }
 
         private GLib.Uri current_uri;
@@ -27,12 +27,9 @@ namespace Taxi {
             set_path (uri);
         }
 
-        class construct {
-            set_css_name (Gtk.STYLE_CLASS_BUTTON);
-        }
-
         construct {
-            get_style_context ().add_class ("pathbar");
+            height_request = 32;
+            add_css_class ("pathbar");
         }
 
         private string concat_until (string[] words, int n) {
@@ -44,24 +41,30 @@ namespace Taxi {
         }
 
         private void add_path_frag (string child, string path) {
-            var button = new Gtk.Button ();
+            var button = new Gtk.Button () {
+                valign = CENTER
+            };
 
             if (path == "/") {
-                button.image = new Gtk.Image.from_icon_name (child, Gtk.IconSize.MENU);
+                button.child = new Gtk.Image.from_icon_name (child);
             } else {
                 var label = new Gtk.Label (child);
                 label.ellipsize = Pango.EllipsizeMode.MIDDLE;
 
                 button.tooltip_text = child;
-                button.add (label);
+                button.child = label;
 
-                var sep = new PathBarSeparator ();
-                add (sep);
+                var sep = new Gtk.Image.from_icon_name ("go-next-symbolic") {
+                    margin_start = 3,
+                    margin_end = 3,
+                    css_classes = { Granite.STYLE_CLASS_DIM_LABEL }
+                };
+
+                append (sep);
             }
 
-            var button_style_context = button.get_style_context ();
-            button_style_context.add_class (Gtk.STYLE_CLASS_FLAT);
-            button_style_context.add_class ("path-button");
+            button.add_css_class (Granite.STYLE_CLASS_FLAT);
+            button.add_css_class ("path-button");
 
             button.clicked.connect (() => {
                 try {
@@ -71,7 +74,8 @@ namespace Taxi {
                     warning (err.message);
                 }
             });
-            add (button);
+
+            append (button);
         }
 
         public void set_path (GLib.Uri uri) {
@@ -93,17 +97,23 @@ namespace Taxi {
             }
             set_path_helper (uri.get_path ());
 
-            var transfer_button = new Gtk.Button.from_icon_name (transfer_icon_name, Gtk.IconSize.MENU);
+            var transfer_button = new Gtk.Button.from_icon_name (transfer_icon_name) {
+                valign = CENTER
+            };
             transfer_button.halign = Gtk.Align.END;
             transfer_button.hexpand = true;
             transfer_button.sensitive = false;
             transfer_button.tooltip_text = _("Transfer");
-            transfer_button.bind_property ("sensitive", this, "transfer-button-sensitive", GLib.BindingFlags.BIDIRECTIONAL);
-            transfer_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+            transfer_button.bind_property (
+                "sensitive", this,
+                "transfer-button-sensitive",
+                GLib.BindingFlags.BIDIRECTIONAL
+            );
+            transfer_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
             transfer_button.clicked.connect (() => transfer ());
 
-            add (transfer_button);
+            append (transfer_button);
         }
 
         private void set_path_helper (string path) {
@@ -116,10 +126,16 @@ namespace Taxi {
         }
 
         private void clear_path () {
-            foreach (Gtk.Widget child in get_children ()) {
+            for (Gtk.Widget? child = get_first_child (); child != null;) {
+                Gtk.Widget? next = child.get_next_sibling ();
                 remove (child);
+                child = next;
             }
-            margin = 0;
+
+            margin_top = 0;
+            margin_bottom = 0;
+            margin_start = 0;
+            margin_end = 0;
         }
     }
 }

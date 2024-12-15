@@ -11,3 +11,16 @@ button.pathbar {
     border-radius: 0;
     padding: 0 6px;
 }
+
+.linked .combo {
+    padding: 2.5px 3px;
+}
+
+.transition {
+    transition: all 175ms ease-in-out;
+}
+
+.drop-target:drop(active) {
+    border-radius: 6px;
+    background: alpha(@color_primary, 0.15);
+}

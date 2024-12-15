@@ -20,8 +20,6 @@ namespace Taxi {
 
         public signal void operation_added (IOperationInfo operation);
         public signal void operation_removed (IOperationInfo operation);
-        public signal int ask_overwrite (File destination);
-
         public async abstract bool delete_recursive (
             File file,
             Cancellable? cancellable
