@@ -29,10 +29,17 @@ cd build
 ninja && sudo ninja install
 ```
 
-## Arch Linux
+## Installation
+
+#### Arch Linux
 Arch Linux users can find Taxi  under the name [taxi-git](https://aur.archlinux.org/packages/taxi-git/) in the **AUR**:
 
 `$ aurman -S taxi-git`
 
-### Donations
+#### Fedora
+Fedora users can find Taxi  under the name [taxi](https://apps.fedoraproject.org/packages/taxi) in official repos:
+
+`$ sudo dnf install taxi`
+
+## Donations
 If you like Taxi and you want to support its development, consider donating via [PayPal](https://www.paypal.me/alecaddd) or pledge on [Patreon](https://www.patreon.com/alecaddd).
