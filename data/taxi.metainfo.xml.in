@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2018-2021 Alessandro Castellani (https://github.com/Alecaddd/taxi) -->
 <component type="desktop-application">
-  <id>com.github.alecaddd.taxi</id>
-  <translation type="gettext">com.github.alecaddd.taxi</translation>
+  <id>io.github.ellie_commons.taxi</id>
+  <translation type="gettext">io.github.ellie_commons.taxi</translation>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>LGPL-3.0+</project_license>
 
@@ -25,28 +25,37 @@
   <content_rating type="oars-1.1" />
 
   <custom>
-    <value key="x-appcenter-color-primary">#fff</value>
     <value key="x-appcenter-suggested-price">10</value>
     <value key="x-appcenter-stripe">pk_live_IsUlnnxPxl9qwiJAu4TWp5gw</value>
   </custom>
 
+  <branding>
+    <color type="primary" scheme_preference="light">#fff</color>
+    <color type="primary" scheme_preference="dark">#333</color>
+  </branding>
+
   <provides>
-    <binary>com.github.alecaddd.taxi</binary>
+    <binary>io.github.ellie_commons.taxi</binary>
   </provides>
-  <launchable type="desktop-id">com.github.alecaddd.taxi.desktop</launchable>
+  <launchable type="desktop-id">io.github.ellie_commons.taxi.desktop</launchable>
 
-  <url type="bugtracker">https://github.com/elementary-community/taxi/issues</url>
-  <url type="contribute">https://github.com/elementary-community/taxi/contribute</url>
-  <url type="help">https://github.com/elementary-community/taxi/discussions/categories/q-a</url>
-  <url type="translate">https://github.com/elementary-community/taxi/tree/main/po</url>
-  <url type="vcs-browser">https://github.com/elementary-community/taxi</url>
-
-  <developer id="com.github.alecaddd">
-    <name>Alessandro Castellani</name>
+  <url type="bugtracker">https://github.com/ellie-commons/taxi/issues</url>
+  <url type="contribute">https://github.com/ellie-commons/taxi/contribute</url>
+  <url type="help">https://github.com/ellie-commons/taxi/discussions/categories/q-a</url>
+  <url type="translate">https://github.com/ellie-commons/taxi/tree/main/po</url>
+  <url type="vcs-browser">https://github.com/ellie-commons/taxi</url>
+  
+  <developer id="io.github.ellie_commons">
+    <name>elementary Commons</name>
   </developer>
-  <update_contact>castellani.ale@gmail.com</update_contact>
 
   <releases>
+    <release version="3.0.0" date="2024-12-15">
+      <description>
+        <p>Fix Flatpak permissions for Home</p>
+      </description>
+    </release>
+
     <release version="2.0.2" date="2018-08-13">
       <description>
         <p>Fix Flatpak permissions for Home</p>

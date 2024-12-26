@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
-  <schema path="/com/github/alecaddd/taxi/state/" id="com.github.alecaddd.taxi.state">
+  <schema path="/io/github/ellie_commons/taxi/state/" id="io.github.ellie_commons.taxi.state">
     <key type="i" name="window-width">
       <default>650</default>
       <summary>Window width.</summary>

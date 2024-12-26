@@ -1,10 +1,10 @@
-app-id: com.github.alecaddd.taxi
+app-id: io.github.ellie_commons.taxi
 
 runtime: io.elementary.Platform
 runtime-version: '8'
 sdk: io.elementary.Sdk
 
-command: com.github.alecaddd.taxi
+command: io.github.ellie_commons.taxi
 
 finish-args:
   - '--share=ipc'
