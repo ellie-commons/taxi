@@ -50,6 +50,8 @@ class Taxi.MainWindow : Gtk.ApplicationWindow {
     }
 
     construct {
+        title = "Taxi";
+
         var navigate_action = new SimpleAction ("navigate", VariantType.STRING);
         navigate_action.activate.connect (action_navigate);
 
@@ -116,7 +118,7 @@ class Taxi.MainWindow : Gtk.ApplicationWindow {
         header_bar.pack_start (bookmark_menu_button);
 
         welcome = new Granite.Placeholder (_("Connect")) {
-            description = _("Type a URL and press 'Enter' to\nconnect to a server."),
+            description = _("Type a URL and press 'Enter' to connect to a server."),
         };
 
         local_pane = new FilePane ();
@@ -162,7 +164,11 @@ class Taxi.MainWindow : Gtk.ApplicationWindow {
         };
         set_titlebar (null_title);
 
-        child = grid;
+        var handle = new Gtk.WindowHandle () {
+            child = grid
+        };
+
+        child = handle;
 
         connect_box.connect_initiated.connect (on_connect_initiated);
         connect_box.ask_hostname.connect (on_ask_hostname);
