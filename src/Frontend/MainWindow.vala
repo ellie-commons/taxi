@@ -117,9 +117,27 @@ class Taxi.MainWindow : Gtk.ApplicationWindow {
         header_bar.pack_start (spinner_revealer);
         header_bar.pack_start (bookmark_menu_button);
 
-        welcome = new Granite.Placeholder (_("Connect")) {
-            description = _("Type a URL and press 'Enter' to connect to a server."),
-        };
+        welcome = new Granite.Placeholder (_("Connect"));
+
+        var uri_list = conn_saver.get_saved_conns ();
+
+        if (uri_list.length () > 0 ) {
+            welcome.description = _("Type a URL and press 'Enter' to connect to a server.\nOr choose one of the bookmarked URL below");
+        } else {
+            welcome.description = _("Type a URL and press 'Enter' to connect to a server.");
+        }
+
+        foreach (string uri in uri_list) {
+            var shortcut = this.welcome.append_button (
+                new ThemedIcon ("gtk-network"),
+                uri,
+                _("Reach this favorited network")
+            );
+
+            shortcut.clicked.connect (() => {
+                connect_box.go_to_uri (uri);
+            });
+        }
 
         local_pane = new FilePane ();
         local_pane.open.connect (on_local_open);
