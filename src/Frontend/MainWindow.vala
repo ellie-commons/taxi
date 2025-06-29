@@ -120,7 +120,7 @@ class Taxi.MainWindow : Gtk.ApplicationWindow {
         var uri_list = conn_saver.get_saved_conns ();
 
         if (uri_list.length () > 0 ) {
-            welcome.description = _("Type a URL and press 'Enter' to connect to a server.\nOr choose one of the bookmarked URL below");
+            welcome.description = _("Type a URL and press 'Enter' to connect to a server,\nor choose one of the bookmarked URL below.");
         } else {
             welcome.description = _("Type a URL and press 'Enter' to connect to a server.");
         }
