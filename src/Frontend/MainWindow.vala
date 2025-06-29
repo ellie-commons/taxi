@@ -223,7 +223,7 @@ class Taxi.MainWindow : Gtk.ApplicationWindow {
 
         var uri_list = conn_saver.get_saved_conns ();
         if (uri_list.length () == 0) {
-            bookmark_menu_button.sensitive = false;
+            bookmark_menu_button.visible = false;
         } else {
             foreach (string uri in uri_list) {
                 var bookmark_item = new Gtk.Button.with_label (uri);
@@ -236,7 +236,7 @@ class Taxi.MainWindow : Gtk.ApplicationWindow {
 
                 bookmark_list.append (bookmark_item);
             }
-            bookmark_menu_button.sensitive = true;
+            bookmark_menu_button.visible = true;
         }
     }
 
