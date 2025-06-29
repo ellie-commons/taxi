@@ -50,6 +50,8 @@ class Taxi.MainWindow : Gtk.ApplicationWindow {
     }
 
     construct {
+        title = "Taxi";
+
         var navigate_action = new SimpleAction ("navigate", VariantType.STRING);
         navigate_action.activate.connect (action_navigate);
 
