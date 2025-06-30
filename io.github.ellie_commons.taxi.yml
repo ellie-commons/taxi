@@ -15,8 +15,6 @@ finish-args:
   - '--filesystem=home'
     # needed to mount FTP
   - '--talk-name=org.gtk.vfs.*'
-  # needed for perfers-color-scheme
-  - '--system-talk-name=org.freedesktop.Accounts'
 
 modules:
   - name: taxi
