@@ -10,7 +10,7 @@ if vala_lint.found()
     test (
         'Vala lint',
         vala_lint,
-        args: ['-d', join_paths(meson.source_root(), 'src')]
+        args: ['-d', join_paths(meson.project_source_root(), 'src')]
     )
 endif
 

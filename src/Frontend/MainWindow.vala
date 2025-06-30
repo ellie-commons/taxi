@@ -50,6 +50,8 @@ class Taxi.MainWindow : Gtk.ApplicationWindow {
     }
 
     construct {
+        title = _("Taxi");
+
         var navigate_action = new SimpleAction ("navigate", VariantType.STRING);
         navigate_action.activate.connect (action_navigate);
 
@@ -72,11 +74,10 @@ class Taxi.MainWindow : Gtk.ApplicationWindow {
         var popover = new OperationsPopover ();
 
         var operations_button = new Gtk.MenuButton () {
-            popover = popover,
-            valign = CENTER,
-            child = spinner
+            child = spinner,
+            has_frame = false,
+            popover = popover
         };
-        operations_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
         spinner_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
