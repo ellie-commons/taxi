@@ -27,9 +27,9 @@ public class Taxi.Taxi : Gtk.Application {
 
         Granite.init ();
 
-        SimpleAction quit_action = new SimpleAction ("quit", null);
-        set_accels_for_action ("app.quit", {"<Control>q"});
+        var quit_action = new SimpleAction ("quit", null);
         add_action (quit_action);
+        set_accels_for_action ("app.quit", {"<Control>q"});
         quit_action.activate.connect (quit);
 
         var provider = new Gtk.CssProvider ();
