@@ -13,7 +13,7 @@
 
 ## Native Linux FTP client
 
-Taxi is a native Linux FTP client built in Vala and Gtk originally created by Kiran John Hampal. It allows you to connect to a remote server with various Protocols (FTP, SFT, etc.), and offers an handy double paned interface to quickly transfer files and folders between your computer and the server.
+Taxi is a native Linux FTP client built in Vala and Gtk. It allows you to connect to a remote server with various protocols (FTP, SFTP, etc.), and offers a handy double-paned interface to quickly transfer files and folders between your computer and the server.
 
 ## Made for [elementary OS](https://elementary.io)
 
@@ -30,7 +30,7 @@ If you want to hack on and build Taxi yourself, you'll need the following depend
 - libadwaita-1
 - libsoup-3.0
 
-Run meson `build` to configure the build environment. Change to the build directory and run ninja to build
+Run meson `build` to configure the build environment. Change to the `build` directory and run `ninja` to build
 
 ```shell
 meson build --prefix=/usr
@@ -70,8 +70,4 @@ Before getting started, read the following guidelines:
 
 ## Credits
 
-This project was originally created by [Alessandro](https://github.com/Alecaddd). His work and initial vision were fundamental to the development of Taxi.
-
-If you’d like to support Alessandro for his incredible contribution to the open-source community, you can donate via [PayPal](https://www.paypal.me/alecaddd) or pledge on [Patreon](https://www.patreon.com/alecaddd).
-
-A big thanks to Alessandro for his contribution to the open-source ecosystem!
+This project was originally created by Kiran John Hampal, with inputs from [Danielle](https://github.com/danirabbit), [Alessandro](https://github.com/Alecaddd), and others. A big thanks to all for their contributions to the open-source ecosystem!
