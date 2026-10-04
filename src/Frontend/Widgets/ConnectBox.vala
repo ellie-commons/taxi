@@ -57,8 +57,12 @@ namespace Taxi {
         }
 
         private void submit_form () {
-            var protocol = ((Protocol) protocol_combobox.get_active ()).to_plain_text ();
             var path = path_entry.get_text ();
+            if (path.length <= 0) {
+                return;
+            }
+
+            var protocol = ((Protocol) protocol_combobox.get_active ()).to_plain_text ();
 
             try {
                 var uri = Uri.parse (protocol + "://" + path, PARSE_RELAXED);
