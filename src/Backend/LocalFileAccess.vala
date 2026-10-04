@@ -51,7 +51,7 @@ namespace Taxi {
         }
 
         public async override bool connect_to_device (
-            Soup.URI uri,
+            GLib.Uri uri,
             Gtk.Window window
         ) {
             return true;

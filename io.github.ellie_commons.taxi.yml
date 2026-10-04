@@ -1,0 +1,24 @@
+app-id: io.github.ellie_commons.taxi
+
+runtime: io.elementary.Platform
+runtime-version: '8.2'
+sdk: io.elementary.Sdk
+
+command: io.github.ellie_commons.taxi
+
+finish-args:
+  - '--share=ipc'
+  - '--share=network'
+  - '--socket=fallback-x11'
+  - '--socket=wayland'
+    # Since it's a file browser
+  - '--filesystem=home'
+    # needed to mount FTP
+  - '--talk-name=org.gtk.vfs.*'
+
+modules:
+  - name: taxi
+    buildsystem: meson
+    sources:
+      - type: dir
+        path: .

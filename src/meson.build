@@ -18,15 +18,16 @@ executable(
     'Frontend/Widgets/ConnectBox.vala',
     'Frontend/Widgets/FilePane.vala',
     'Frontend/Widgets/OperationsPopover.vala',
-    'Frontend/Widgets/PathBarSeparator.vala',
     'Frontend/Widgets/PathBar.vala',
-    asresources,
+    'Frontend/Widgets/FileRow.vala',
+    gresource,
     dependencies: [
         dependency('glib-2.0'),
         dependency('gobject-2.0'),
-        dependency('granite', version: '>=0.5'),
-        dependency('gtk+-3.0', version: '>=3.22'),
-        dependency('libsoup-2.4'),
+        dependency('granite-7'),
+        dependency('gtk4'),
+        dependency('libadwaita-1', version: '>=1.4'),
+        dependency('libsoup-3.0'),
         meson.get_compiler('vala').find_library('posix', required : false)
     ],
     install : true

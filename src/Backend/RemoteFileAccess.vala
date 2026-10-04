@@ -18,7 +18,7 @@ namespace Taxi {
 
     class RemoteFileAccess : FileAccess {
 
-        private Soup.URI uri;
+        private GLib.Uri uri;
         private Gtk.Window window;
 
         public RemoteFileAccess () {
@@ -26,13 +26,13 @@ namespace Taxi {
         }
 
         public async override bool connect_to_device (
-            Soup.URI uri,
+            GLib.Uri uri,
             Gtk.Window window
         ) {
             this.window = window;
             var mount = mount_operation_from_uri (uri);
             this.uri = uri;
-            file_handle = File.new_for_uri (uri.to_string (false));
+            file_handle = File.new_for_uri (uri.to_string ());
             try {
                 return yield file_handle.mount_enclosing_volume (
                     MountMountFlags.NONE,
@@ -86,7 +86,7 @@ namespace Taxi {
             file_handle = file_handle.resolve_relative_path ("/" + path);
         }*/
 
-        private Gtk.MountOperation mount_operation_from_uri (Soup.URI uri) {
+        private Gtk.MountOperation mount_operation_from_uri (GLib.Uri uri) {
             var mount = new Gtk.MountOperation (window);
             mount.set_domain (uri.get_host ());
             return mount;

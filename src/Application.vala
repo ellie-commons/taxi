@@ -17,9 +17,40 @@
 public class Taxi.Taxi : Gtk.Application {
     public Taxi () {
         Object (
-            application_id: "com.github.alecaddd.taxi",
+            application_id: "io.github.ellie_commons.taxi",
             flags: ApplicationFlags.FLAGS_NONE
         );
+    }
+
+    protected override void startup () {
+        base.startup ();
+
+        Granite.init ();
+
+        var quit_action = new SimpleAction ("quit", null);
+        add_action (quit_action);
+        set_accels_for_action ("app.quit", {"<Control>q"});
+        quit_action.activate.connect (quit);
+
+        var provider = new Gtk.CssProvider ();
+        provider.load_from_resource ("io/github/ellie_commons/taxi/Application.css");
+        Gtk.StyleContext.add_provider_for_display (
+            Gdk.Display.get_default (),
+            provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        );
+
+        var granite_settings = Granite.Settings.get_default ();
+        var gtk_settings = Gtk.Settings.get_default ();
+
+        gtk_settings.gtk_application_prefer_dark_theme = (
+            granite_settings.prefers_color_scheme == DARK
+        );
+
+        granite_settings.notify["prefers-color-scheme"].connect (() => {
+            gtk_settings.gtk_application_prefer_dark_theme = (
+                granite_settings.prefers_color_scheme == DARK
+            );
+        });
     }
 
     protected override void activate () {
@@ -30,7 +61,18 @@ public class Taxi.Taxi : Gtk.Application {
             new FileOperations (),
             new ConnectionSaver ()
         );
-        main_window.show_all ();
+
+        var settings = new Settings ("io.github.ellie_commons.taxi.state");
+        settings.bind ("window-height", main_window, "default-height", SettingsBindFlags.DEFAULT);
+        settings.bind ("window-width", main_window, "default-width", SettingsBindFlags.DEFAULT);
+
+        if (settings.get_boolean ("maximized")) {
+            main_window.maximize ();
+        }
+
+        settings.bind ("maximized", main_window, "maximized", SettingsBindFlags.SET);
+
+        main_window.present ();
     }
 
     public static int main (string[] args) {

@@ -27,7 +27,7 @@ namespace Taxi {
          * @return true if successful at connecting
          */
         public async abstract bool connect_to_device (
-            Soup.URI uri,
+            GLib.Uri uri,
             Gtk.Window window
         );
 
@@ -38,11 +38,11 @@ namespace Taxi {
          */
         public async abstract List<FileInfo> get_file_list ();
 
-        public abstract Soup.URI get_uri ();
+        public abstract GLib.Uri? get_uri ();
 
-        public abstract void goto_dir (Soup.URI uri);
+        public abstract void goto_dir (GLib.Uri uri);
 
-        public abstract void open_file (Soup.URI uri);
+        public abstract void open_file (GLib.Uri uri);
 
         public abstract File get_current_file ();
     }

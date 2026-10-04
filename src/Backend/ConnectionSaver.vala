@@ -18,7 +18,7 @@ namespace Taxi {
 
     class ConnectionSaver : IConnectionSaver, Object {
 
-        string file_dir  = Path.build_filename (
+        string file_dir = Path.build_filename (
             Environment.get_user_config_dir (),
             "taxi"
         );
@@ -50,9 +50,10 @@ namespace Taxi {
                 }
                 bookmark.add_application (uri, "taxi", "taxi");
                 return bookmark.to_file (file_name);
-            } catch (BookmarkFileError e) {
+            } catch (Error e) {
                 message (e.message);
             }
+
             return false;
         }
 
@@ -64,7 +65,7 @@ namespace Taxi {
                     bookmark.load_from_file (file_name);
                     bookmark.remove_application (uri, "taxi");
                     return bookmark.to_file (file_name);
-                } catch (BookmarkFileError e) {
+                } catch (Error e) {
                     message (e.message);
                     return false;
                 }
@@ -82,7 +83,7 @@ namespace Taxi {
                     foreach (string uri in bookmark.get_uris ()) {
                         connection_list.append (uri);
                     }
-                } catch (BookmarkFileError e) {
+                } catch (Error e) {
                     message (e.message);
                 }
             }
@@ -96,7 +97,7 @@ namespace Taxi {
                 try {
                     bookmark.load_from_file (file_name);
                     return bookmark.has_item (uri);
-                } catch (BookmarkFileError e) {
+                } catch (Error e) {
                     message (e.message);
                 }
             }

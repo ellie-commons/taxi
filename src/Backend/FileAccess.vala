@@ -22,7 +22,7 @@ namespace Taxi {
         protected virtual IFileOperations file_operation { get; set; }
 
         public abstract async bool connect_to_device (
-            Soup.URI uri,
+            GLib.Uri uri,
             Gtk.Window window
         );
 
@@ -31,25 +31,32 @@ namespace Taxi {
                 return yield file_operation.get_file_list (file_handle);
             } catch (Error e) {
                 message (e.message);
-                return new List<FileInfo>();
+                return new List<FileInfo> ();
             }
         }
 
-        public virtual Soup.URI get_uri () {
+        public virtual GLib.Uri? get_uri () {
             var uri = file_handle.get_uri ();
             if (!uri.has_suffix ("/")) {
                 uri += "/";
             }
-            return new Soup.URI (uri);
+
+            try {
+                return GLib.Uri.parse (uri, PARSE_RELAXED);
+            } catch (Error e) {
+                message (e.message);
+            }
+
+            return null;
         }
 
-        public virtual void goto_dir (Soup.URI uri) {
-            var uri_string = uri.to_string (false);
+        public virtual void goto_dir (GLib.Uri uri) {
+            var uri_string = uri.to_string ();
             file_handle = File.new_for_uri (uri_string);
         }
 
-        public virtual void open_file (Soup.URI uri) {
-            var uri_string = uri.to_string (false);
+        public virtual void open_file (GLib.Uri uri) {
+            var uri_string = uri.to_string ();
             try {
                 AppInfo.launch_default_for_uri (uri_string, null);
             } catch (Error e) {

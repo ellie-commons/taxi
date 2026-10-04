@@ -2,11 +2,25 @@
     background: none;
     border-radius: 0;
     border-width: 0;
+    padding: 6px;
 }
 
-.button {
+button.pathbar {
     border-width: 0;
     border-bottom-width: 1px;
     border-radius: 0;
     padding: 0 6px;
+}
+
+.linked .combo {
+    margin: 1px 0;
+}
+
+.transition {
+    transition: all 175ms ease-in-out;
+}
+
+.drop-target:drop(active) {
+    border-radius: 6px;
+    background: alpha(@color_primary, 0.15);
 }

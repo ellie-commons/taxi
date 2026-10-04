@@ -1,0 +1,77 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the extra package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: extra\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-27 15:18+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: data/taxi.desktop.in:4 data/taxi.metainfo.xml.in:9
+msgid "Taxi"
+msgstr ""
+
+#: data/taxi.desktop.in:5
+msgid "Transfer local and remotes files"
+msgstr ""
+
+#: data/taxi.desktop.in:6
+msgid "FTP Client"
+msgstr ""
+
+#: data/taxi.desktop.in:9
+msgid "ftp;sftp;dav;afp;transfer;"
+msgstr ""
+
+#: data/taxi.metainfo.xml.in:10
+msgid "The FTP Client that drives you anywhere"
+msgstr ""
+
+#: data/taxi.metainfo.xml.in:12
+msgid ""
+"Connect to a remote server with various Protocols (FTP, SFT, etc.), and "
+"quickly transfer files and folders with the handy double paned interface. "
+"Taxi handles bookmarks and remembers your login credentials too!"
+msgstr ""
+
+#: data/taxi.metainfo.xml.in:49
+msgid "elementary Commons"
+msgstr ""
+
+#: data/taxi.metainfo.xml.in:55 data/taxi.metainfo.xml.in:61
+msgid "Fix Flatpak permissions for Home"
+msgstr ""
+
+#: data/taxi.metainfo.xml.in:67
+msgid "Fix Flatpak permissions for FTP mounts"
+msgstr ""
+
+#: data/taxi.metainfo.xml.in:73
+msgid "Update for elementary OS 6"
+msgstr ""
+
+#: data/taxi.metainfo.xml.in:74
+msgid "Dark style support"
+msgstr ""
+
+#: data/taxi.metainfo.xml.in:75
+msgid "Fix homepage link"
+msgstr ""
+
+#: data/taxi.metainfo.xml.in:76
+msgid "Add Dutch translations"
+msgstr ""
+
+#: data/taxi.metainfo.xml.in:82
+msgid "The very first release of Taxi on AppCenter!"
+msgstr ""

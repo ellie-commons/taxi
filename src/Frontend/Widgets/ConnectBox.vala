@@ -15,16 +15,16 @@
 ***/
 
 namespace Taxi {
-    public class ConnectBox : Gtk.Grid {
+    public class ConnectBox : Adw.Bin {
         private Gtk.ComboBoxText protocol_combobox;
         private Gtk.Entry path_entry;
         private ulong? handler;
         private bool show_fav_icon = false;
         private bool added = false;
 
-        public signal void connect_initiated (Soup.URI uri);
+        public signal void connect_initiated (GLib.Uri uri);
         public signal void bookmarked ();
-        public signal Soup.URI ask_hostname ();
+        public signal GLib.Uri ask_hostname ();
 
         construct {
             string[] entries = {"FTP", "SFTP", "DAV", "AFP"};
@@ -34,30 +34,41 @@ namespace Taxi {
                 protocol_combobox.append_text (entry);
             }
             protocol_combobox.active = 0;
-            protocol_combobox.valign = Gtk.Align.CENTER;
 
             path_entry = new Gtk.Entry ();
             path_entry.placeholder_text = _("hostname:port/folder");
             path_entry.hexpand = true;
             path_entry.max_width_chars = 10000;
 
-            orientation = Gtk.Orientation.HORIZONTAL;
-            add (protocol_combobox);
-            add (path_entry );
-            get_style_context ().add_class (Gtk.STYLE_CLASS_LINKED);
+            var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+            box.append (protocol_combobox);
+            box.append (path_entry);
+            box.add_css_class (Granite.STYLE_CLASS_LINKED);
+
+            child = box;
 
             path_entry.activate.connect (submit_form);
             path_entry.changed.connect (on_changed);
-            path_entry.focus_out_event.connect (on_focus_out);
-            path_entry.grab_focus.connect_after (on_grab_focus);
+
+            var focus_controller = new Gtk.EventControllerFocus ();
+            path_entry.add_controller (focus_controller);
+            focus_controller.enter.connect (on_grab_focus);
+            focus_controller.leave.connect (on_focus_out);
         }
 
         private void submit_form () {
-            var protocol = ((Protocol) protocol_combobox.get_active ()).to_plain_text ();
             var path = path_entry.get_text ();
-            var uri = new Soup.URI (protocol + "://" + path);
-            if (path.length > 0) {
+            if (path.length <= 0) {
+                return;
+            }
+
+            var protocol = ((Protocol) protocol_combobox.get_active ()).to_plain_text ();
+
+            try {
+                var uri = Uri.parse (protocol + "://" + path, PARSE_RELAXED);
                 connect_initiated (uri);
+            } catch (Error err) {
+                warning (err.message);
             }
         }
 
@@ -81,15 +92,14 @@ namespace Taxi {
             }
         }
 
-        private bool on_focus_out () {
+        private void on_focus_out () {
             if (path_entry.get_text () == "" && show_fav_icon) {
                 var uri_reply = ask_hostname ();
                 // TODO: Handle text changes in a less lazy way
                 path_entry.changed.disconnect (this.on_changed);
-                path_entry.set_text (uri_reply.to_string (false));
+                path_entry.set_text (uri_reply.to_string ());
                 path_entry.changed.connect (this.on_changed);
             }
-            return false;
         }
 
         private void hide_host_icon () {
@@ -119,7 +129,11 @@ namespace Taxi {
 
             path_entry.text = split[1];
 
-            connect_initiated (new Soup.URI (uri));
+            try {
+                connect_initiated (GLib.Uri.parse (uri, PARSE_RELAXED));
+            } catch (Error err) {
+                warning (err.message);
+            }
         }
 
         public void show_favorite_icon (bool added = false) {
@@ -139,10 +153,11 @@ namespace Taxi {
             });
         }
 
-        public bool on_key_press_event (Gdk.EventKey event) {
+        public bool on_key_press_event () {
             if (!path_entry.has_visible_focus ()) {
                 path_entry.grab_focus ();
             }
+
             return false;
         }
 

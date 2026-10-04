@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
-  <schema path="/com/github/alecaddd/taxi/state/" id="com.github.alecaddd.taxi.state">
+  <schema path="/io/github/ellie_commons/taxi/state/" id="io.github.ellie_commons.taxi.state">
     <key type="i" name="window-width">
       <default>650</default>
       <summary>Window width.</summary>
@@ -15,16 +15,6 @@
       <default>false</default>
       <summary>Whether the window should be maximized.</summary>
       <description>Whether the window should be maximized by default.</description>
-    </key>
-    <key type="i" name="opening-x">
-      <default>-1</default>
-      <summary>Most recent x position of the window.</summary>
-      <description>Most recent x position of the window.</description>
-    </key>
-    <key type="i" name="opening-y">
-      <default>-1</default>
-      <summary>Most recent y position of the window.</summary>
-      <description>Most recent y position of the window.</description>
     </key>
   </schema>
 </schemalist>

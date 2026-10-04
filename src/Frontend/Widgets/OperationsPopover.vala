@@ -18,69 +18,77 @@ namespace Taxi {
 
     class OperationsPopover : Gtk.Popover {
 
-        Gtk.Grid grid = new Gtk.Grid ();
-        Gee.Map<IOperationInfo, Gtk.Grid> operation_map
-            = new Gee.HashMap <IOperationInfo, Gtk.Grid> ();
-        Gtk.Label placeholder;
+        private Gtk.ListBox listbox;
+
+        private Gee.Map<IOperationInfo, Gtk.ListBoxRow> operation_map = new Gee.HashMap <IOperationInfo, Gtk.ListBoxRow> ();
 
         public signal void operations_pending ();
         public signal void operations_finished ();
 
-        public OperationsPopover (Gtk.Widget widget) {
-            set_relative_to (widget);
-            grid.set_orientation (Gtk.Orientation.VERTICAL);
-            grid.margin = 12;
-            placeholder = new Gtk.Label (_("No file operations are in progress"));
-            add (grid);
-            build ();
+        construct {
+            listbox = new Gtk.ListBox () {
+                margin_top = 12,
+                margin_bottom = 12,
+                margin_start = 12,
+                margin_end = 12
+            };
+            listbox.set_placeholder (new Gtk.Label (_("No file operations are in progress")));
+
+            child = listbox;
+            autohide = false;
         }
 
-        private void build () {
-            grid.add (placeholder);
-        }
-
-        public void add_operation (IOperationInfo operation) {
-            if (grid.get_child_at (0, 0) == placeholder) {
-                grid.remove (placeholder);
+        public async void add_operation (IOperationInfo operation) {
+            if (operation_map.size <= 0) {
                 operations_pending ();
             }
-            var row = new Gtk.Grid ();
-            operation_map.set (operation, row);
 
-            row.add (new Gtk.Label (operation.get_file_name ()));
+            var row_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+                margin_top = 3,
+                margin_bottom = 3
+            };
 
-            operation.get_file_icon.begin ((obj, res) => {
-                row.add (
-                    new Gtk.Image.from_gicon (
-                        operation.get_file_icon.end (res),
-                        Gtk.IconSize.DND
-                    )
-                );
+            var icon = yield operation.get_file_icon ();
+            row_box.append (new Gtk.Image.from_gicon (icon));
+
+            row_box.append (new Gtk.Label (operation.get_file_name ()) {
+                margin_start = 6,
+                ellipsize = END
             });
 
-            var cancel = new Gtk.Image.from_icon_name (
-                "process-stop-symbolic",
-                Gtk.IconSize.BUTTON
-            );
-            var cancel_container = new Gtk.EventBox ();
-            cancel_container.add (cancel);
-            cancel_container.button_press_event.connect (() => {
+            var cancel_container = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+                hexpand = true,
+                halign = END,
+                margin_start = 12
+            };
+            cancel_container.append (new Gtk.Image.from_icon_name ("process-stop-symbolic"));
+
+            var click_controller = new Gtk.GestureClick ();
+            cancel_container.add_controller (click_controller);
+            click_controller.pressed.connect (() => {
                 operation.cancel ();
-                return false;
             });
-            row.add (cancel_container);
 
-            grid.add (row);
-            grid.show_all ();
+            row_box.append (cancel_container);
+
+            operation_map[operation] = new Gtk.ListBoxRow () {
+                child = row_box,
+                tooltip_text = operation.get_file_name ()
+            };
+
+            listbox.append (operation_map[operation]);
         }
 
         public void remove_operation (IOperationInfo operation) {
+            if (!operation_map.has_key (operation)) {
+                return;
+            }
+
             var row = operation_map.get (operation);
-            grid.remove (row);
+            listbox.remove (row);
             operation_map.unset (operation);
-            if (operation_map.size == 0) {
+            if (operation_map.size <= 0) {
                 operations_finished ();
-                grid.add (placeholder);
             }
         }
     }
