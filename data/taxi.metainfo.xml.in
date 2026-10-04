@@ -4,23 +4,23 @@
   <id>io.github.ellie_commons.taxi</id>
   <translation type="gettext">io.github.ellie_commons.taxi</translation>
   <metadata_license>CC0-1.0</metadata_license>
-  <project_license>LGPL-3.0+</project_license>
+  <project_license>LGPL-3.0-or-later</project_license>
 
   <name>Taxi</name>
   <summary>The FTP Client that drives you anywhere</summary>
+
   <description>
-    <p>Connect to a remote server with various Protocols (FTP, SFT, etc.), and quickly transfer files and folders with the handy double paned interface. Taxi handles bookmarks and remembers your login credentials too!</p>
+    <p>
+      Connect to a remote server with various Protocols (FTP, SFT, etc.), and quickly transfer files and folders with the handy double paned interface. Taxi handles bookmarks and remembers your login credentials too!
+    </p>
   </description>
 
   <screenshots>
     <screenshot type="default" environment="pantheon">
-      <image>https://raw.githubusercontent.com/Alecaddd/taxi/master/data/screenshot.png</image>
+      <caption>Main window of Taxi</caption>
+      <image>https://raw.githubusercontent.com/ellie-commons/taxi/main/data/screenshot.png</image>
     </screenshot>
   </screenshots>
-
-  <branding>
-    <color type="primary">#fff</color>
-  </branding>
 
   <content_rating type="oars-1.1" />
 
@@ -30,8 +30,8 @@
   </custom>
 
   <branding>
-    <color type="primary" scheme_preference="light">#fff</color>
-    <color type="primary" scheme_preference="dark">#333</color>
+    <color type="primary" scheme_preference="light">#ffffff</color>
+    <color type="primary" scheme_preference="dark">#333333</color>
   </branding>
 
   <provides>
@@ -39,6 +39,7 @@
   </provides>
   <launchable type="desktop-id">io.github.ellie_commons.taxi.desktop</launchable>
 
+  <url type="homepage">https://github.com/ellie-commons/taxi</url>
   <url type="bugtracker">https://github.com/ellie-commons/taxi/issues</url>
   <url type="contribute">https://github.com/ellie-commons/taxi/contribute</url>
   <url type="help">https://github.com/ellie-commons/taxi/discussions/categories/q-a</url>
