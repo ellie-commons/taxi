@@ -29,8 +29,8 @@
   </custom>
 
   <branding>
-    <color type="primary" scheme_preference="light">#fff</color>
-    <color type="primary" scheme_preference="dark">#333</color>
+    <color type="primary" scheme_preference="light">#ffffff</color>
+    <color type="primary" scheme_preference="dark">#333333</color>
   </branding>
 
   <provides>
@@ -38,6 +38,7 @@
   </provides>
   <launchable type="desktop-id">io.github.ellie_commons.taxi.desktop</launchable>
 
+  <url type="homepage">https://github.com/ellie-commons/taxi</url>
   <url type="bugtracker">https://github.com/ellie-commons/taxi/issues</url>
   <url type="contribute">https://github.com/ellie-commons/taxi/contribute</url>
   <url type="help">https://github.com/ellie-commons/taxi/discussions/categories/q-a</url>
