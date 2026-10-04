@@ -57,7 +57,7 @@ namespace Taxi {
                 var sep = new Gtk.Image.from_icon_name ("go-next-symbolic") {
                     margin_start = 3,
                     margin_end = 3,
-                    css_classes = { Granite.STYLE_CLASS_DIM_LABEL }
+                    css_classes = { Granite.CssClass.DIM }
                 };
 
                 append (sep);
