@@ -36,12 +36,12 @@ namespace Taxi {
                 hexpand = true
             };
 
-            var placeholder_label = new Gtk.Label (_("This Folder Is Empty")) {
+            var placeholder_label = new Granite.HeaderLabel (_("This Folder Is Empty")) {
                 halign = Gtk.Align.CENTER,
-                valign = Gtk.Align.CENTER
+                valign = Gtk.Align.CENTER,
+                size = H2
             };
-            placeholder_label.add_css_class (Granite.STYLE_CLASS_H2_LABEL);
-            placeholder_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
+            placeholder_label.add_css_class (Granite.CssClass.DIM);
 
             list_box = new Gtk.ListBox () {
                 hexpand = true,

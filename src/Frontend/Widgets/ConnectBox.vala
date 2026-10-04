@@ -40,10 +40,9 @@ namespace Taxi {
             path_entry.hexpand = true;
             path_entry.max_width_chars = 10000;
 
-            var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+            var box = new Granite.Box (Gtk.Orientation.HORIZONTAL, Granite.Box.Spacing.LINKED);
             box.append (protocol_combobox);
             box.append (path_entry);
-            box.add_css_class (Granite.STYLE_CLASS_LINKED);
 
             child = box;
 
@@ -57,8 +56,12 @@ namespace Taxi {
         }
 
         private void submit_form () {
-            var protocol = ((Protocol) protocol_combobox.get_active ()).to_plain_text ();
             var path = path_entry.get_text ();
+            if (path.length <= 0) {
+                return;
+            }
+
+            var protocol = ((Protocol) protocol_combobox.get_active ()).to_plain_text ();
 
             try {
                 var uri = Uri.parse (protocol + "://" + path, PARSE_RELAXED);

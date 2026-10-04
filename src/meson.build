@@ -24,9 +24,9 @@ executable(
     dependencies: [
         dependency('glib-2.0'),
         dependency('gobject-2.0'),
-        dependency('granite-7'),
+        dependency('granite-7', version: '>= 7.7.0'),
         dependency('gtk4'),
-        dependency('libadwaita-1', version: '>=1.4'),
+        dependency('libadwaita-1', version: '>= 1.4'),
         dependency('libsoup-3.0'),
         meson.get_compiler('vala').find_library('posix', required : false)
     ],
