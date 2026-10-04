@@ -17,6 +17,7 @@
 
   <screenshots>
     <screenshot type="default" environment="pantheon">
+      <caption>Main window of Taxi</caption>
       <image>https://raw.githubusercontent.com/ellie-commons/taxi/main/data/screenshot.png</image>
     </screenshot>
   </screenshots>
