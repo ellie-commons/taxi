@@ -1,4 +1,4 @@
-app-id: io.github.ellie_commons.taxi
+id: io.github.ellie_commons.taxi
 
 runtime: io.elementary.Platform
 runtime-version: '9.1'
