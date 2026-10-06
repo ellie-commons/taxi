@@ -25,12 +25,12 @@ jobs:
       fail-fast: false
 
     container:
-      image: ghcr.io/elementary/flatpak-platform/runtime:8-${{ matrix.arch }}
+      image: ghcr.io/elementary/flatpak-platform/runtime:9.1-${{ matrix.arch }}
       options: --privileged
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Build
         uses: flatpak/flatpak-github-actions/flatpak-builder@v6
@@ -53,7 +53,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Lint
         run: io.elementary.vala-lint -d .

@@ -164,7 +164,7 @@ namespace Taxi {
         message_dialog.add_button (_("Replace All Conflicts"), ConflictFlag.REPLACE_ALL);
         message_dialog.add_button (_("Skip"), ConflictFlag.SKIP);
         var replace_button = message_dialog.add_button (_("Replace"), ConflictFlag.REPLACE);
-        replace_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
+        replace_button.add_css_class (Granite.CssClass.SUGGESTED);
 
         message_dialog.show ();
 

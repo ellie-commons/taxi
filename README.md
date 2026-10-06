@@ -26,8 +26,8 @@ Taxi is designed and developed on and for [elementary OS](https://elementary.io)
 If you want to hack on and build Taxi yourself, you'll need the following dependencies:
 
 - gtk4
-- granite-7
-- libadwaita-1
+- granite-7 (>= 7.7.0)
+- libadwaita-1 (>= 1.4)
 - libsoup-3.0
 
 Run meson `build` to configure the build environment. Change to the `build` directory and run `ninja` to build

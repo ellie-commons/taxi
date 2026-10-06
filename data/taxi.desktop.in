@@ -1,10 +1,14 @@
 [Desktop Entry]
+Version=1.0
 Type=Application
+
 Name=Taxi
 Comment=Transfer local and remotes files
-GenericName=FTP Client
+Categories=Utility;Development;Network;FileTransfer;
+Keywords=ftp;sftp;dav;afp;transfer;
+
 Exec=io.github.ellie_commons.taxi
 Icon=io.github.ellie_commons.taxi
-Keywords=ftp;sftp;dav;afp;transfer;
+SingleMainWindow=true
+StartupNotify=true
 Terminal=false
-Categories=Utility;Development;Network;

@@ -100,7 +100,7 @@ namespace Taxi {
 
             if (file_info.get_file_type () == FileType.REGULAR) {
                 var size = new Gtk.Label (bit_string_format (file_info.get_size ()));
-                size.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
+                size.add_css_class (Granite.CssClass.DIM);
                 row.append (size);
             }
 
