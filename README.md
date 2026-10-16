@@ -65,8 +65,8 @@ Taxi is open source. You can contribute by reporting/fixing [bugs](https://githu
 
 Before getting started, read the following guidelines:
 
-- elementary OS [HIG](https://elementary.io/docs/human-interface-guidelines#human-interface-guidelines)
-- elementary OS [developer guide](https://elementary.io/docs/code/getting-started#developer-sdk)
+- elementary OS [HIG](https://docs.elementary.io/hig)
+- elementary OS [developer guide](https://docs.elementary.io/develop)
 
 ## Credits
 
