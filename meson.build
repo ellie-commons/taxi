@@ -1,4 +1,7 @@
-project('io.github.ellie_commons.taxi', 'vala', 'c')
+project('io.github.ellie_commons.taxi',
+    'vala', 'c',
+    version: '3.0.0'
+)
 
 gnome = import('gnome')
 i18n = import('i18n')

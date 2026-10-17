@@ -51,10 +51,19 @@
   </developer>
 
   <releases>
-    <release version="3.0.0" date="2024-12-15">
+    <release version="3.0.0" date="2026-10-16">
       <description>
-        <p>Fix Flatpak permissions for Home</p>
+        <ul>
+          <li>Refresh icons and logo image</li>
+          <li>Fix missing window title in Multitasking View</li>
+          <li>Ctrl+Q to quit the app</li>
+        </ul>
       </description>
+      <issues>
+        <issue url="https://github.com/ellie-commons/taxi/issues/34">Prevent Connection if URL is empty</issue>
+        <issue url="https://github.com/ellie-commons/taxi/issues/49">Add appdata to be translated</issue>
+        <issue url="https://github.com/ellie-commons/taxi/issues/80">Port to Gtk4</issue>
+      </issues>
     </release>
 
     <release version="2.0.2" date="2018-08-13">
